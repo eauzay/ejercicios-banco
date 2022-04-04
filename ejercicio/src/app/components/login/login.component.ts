@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {  Router } from '@angular/router';
 import { VALUES } from 'src/app/Constants/Constants';
 
 @Component({
@@ -10,7 +11,7 @@ import { VALUES } from 'src/app/Constants/Constants';
 export class LoginComponent implements OnInit {
   form!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -26,7 +27,7 @@ export class LoginComponent implements OnInit {
 
   clickOnLogin() {
     if (this.form.get('user')?.value === VALUES.user && this.form.get('password')?.value === VALUES.password) {
-     alert("Éxito");
+      this.router.navigate(['/main'])
     }
     else
       alert("Clave incorrecta");
