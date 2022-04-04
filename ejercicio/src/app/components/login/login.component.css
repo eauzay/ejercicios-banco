@@ -1,0 +1,52 @@
+.row{
+    display: flex;
+}
+
+.column{
+    flex:50%;
+}
+
+h1 {
+    text-align: center;
+    font-size: 30px;
+    color: #838181;
+    padding: 8px;
+}
+
+form * {
+    width: 100%;
+}
+
+input {
+    margin-bottom: 14px;
+    padding: 5px 0px
+}
+
+button {
+    background: #fbfe27;
+    border: 1px solid #c5c840;
+    padding: 9px;
+    border-radius: 3px;
+}
+
+.logo {
+    flex-grow: 1;
+    padding: 50px;
+}
+
+.box {
+    flex-grow: 1;
+    align-items: center; 
+    width: 100%;
+    align-content: center;
+    justify-content: center;
+    display: flex;
+}
+
+.card{
+    border: 1px solid #efeded;
+    border-radius: 3px;
+    padding: 20px;
+    height: 290px;
+    width: 330px;
+} 
