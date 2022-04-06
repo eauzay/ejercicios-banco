@@ -6,17 +6,23 @@
             <div class="card">
                 <div class="card-body">
                     <form [formGroup]="form">
-                        <div class="row">
+                        <div class="row mb-3">
                             <label>Nombre:</label>
-                            <input type="text" formControlName="name" required>
+                            <input type="text" class="form-control" formControlName="name" required>
                         </div>
-                        <div class="row">
+                        <div class="row mb-3">
                             <label>Identificación:</label>
-                            <input type="text" formControlName="identification" required>
+                            <input type="text" class="form-control" formControlName="identification" required>
                         </div>
-                        <div class="row">
+                        <div class="row mb-3">
                             <label>Ciudad:</label>
-                            <input type="text" formControlName="city" required>
+                            <input type="text" class="form-control" formControlName="city" required>
+                        </div>
+                        <div class="row mb-3">
+                            <label>Rol:</label>
+                            <select formControlName="idRole" class="form-control" placeholder="Escoja un rol">
+                                <option *ngFor="let item of listRoles" value="{{item.id}}"> {{item.name}}</option>
+                            </select>
                         </div>
                         <br />
                         <div class="row footer justify-content-md-center">

@@ -18,6 +18,7 @@
                 <th scope="col">Nombres</th>
                 <th scope="col">Cedula</th>
                 <th scope="col">Ciudad</th>
+                <th scope="col">Rol</th>
                 <th scope="col">Acciones</th>
             </tr>
         </thead>
@@ -27,7 +28,7 @@
                 <td>{{item.name | textUpper : true}}</td>
                 <td>{{item.identification}}</td>
                 <td>{{item.city | textUpper : false}}</td>
-
+                <td>{{item.idRole | roleName}}</td>
                 <td>
                     <i class="fa fa-trash-o" data-bs-toggle="modal" data-bs-target="#deleteModal"
                         (click)="onClickButtonDelete(i)">
@@ -46,22 +47,3 @@
         Está seguro que desea eliminar el usuario : {{listUsers[position].name}} ?
     </div>
 </app-modal>
-<!-- 
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalLabel">Confirmación</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Está seguro que desea eliminar este registro?
-            </div>
-            <div class="modal-footer">
-                <button id="closeModal" type="button" class="btn btn-secondary"
-                    data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" (click)="delete()">Aceptar</button>
-            </div>
-        </div>
-    </div>
-</div> -->

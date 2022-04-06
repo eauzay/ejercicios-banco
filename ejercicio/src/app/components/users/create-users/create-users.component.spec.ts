@@ -43,17 +43,6 @@ describe('CreateUsersComponent', () => {
 
     expect(component.form.valid).toBeTrue();
   })
-
-  it('form valid', () => {
-    component.form = formBuilder.group({
-      name: new FormControl('eve'),
-      identification: new FormControl('12'),
-      city: new FormControl('quito')
-    })
-
-    expect(component.form.valid).toBeTrue();
-  })
-
   
   it('user create successfully', () => {
     component.listUsers = data;

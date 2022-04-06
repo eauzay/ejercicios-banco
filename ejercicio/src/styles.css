@@ -13,3 +13,22 @@ form{
 button{
   margin-left: 15px;
 }
+
+.fa-trash-o{
+  color: red;
+  padding-right: 6px;
+}
+
+.table{
+  border: 1px solid #e1e5e8;
+}
+
+table, th, td {
+  border: 1px solid #b2adad;
+  border-collapse: collapse;
+}
+
+h1{
+font-family: math;
+color: #868484;
+}

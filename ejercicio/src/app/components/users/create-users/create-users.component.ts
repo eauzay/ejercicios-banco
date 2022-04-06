@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
+import { listRoles } from '../../auth/login/data';
+import { Role } from '../../../models/role';
 
 @Component({
   selector: 'app-create-users',
@@ -11,10 +13,13 @@ import { User } from 'src/app/models/user';
 export class CreateUsersComponent implements OnInit {
   form!: FormGroup;
   listUsers!: Array<User>;
+  listRoles!: Array<Role>;
 
   constructor(private formBuilder: FormBuilder, private router: Router) {
     let data = sessionStorage.getItem('data');
-    this.listUsers = (data !== null) ? JSON.parse(data) : null
+    let roles = sessionStorage.getItem('roles');
+    this.listUsers = (data !== null) ? JSON.parse(data) : null;
+    this.listRoles = (roles !== null) ? JSON.parse(roles) : null;
   }
 
   ngOnInit(): void {
@@ -25,7 +30,8 @@ export class CreateUsersComponent implements OnInit {
     this.form = this.formBuilder.group({
       name: new FormControl('', Validators.required),
       identification: new FormControl('', Validators.required),
-      city: new FormControl('', Validators.required)
+      city: new FormControl('', Validators.required),
+      idRole: new FormControl('', Validators.required)
     })
   }
 
@@ -36,6 +42,7 @@ export class CreateUsersComponent implements OnInit {
       name: this.form.get('name')?.value,
       identification: this.form.get('identification')?.value,
       city: this.form.get('city')?.value,
+      idRole: this.form.get('idRole')?.value,
     }
 
     this.listUsers.push(user);

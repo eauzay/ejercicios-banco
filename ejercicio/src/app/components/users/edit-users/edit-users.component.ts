@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../../models/user';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Role } from '../../../models/role';
 
 @Component({
   selector: 'app-edit-users',
@@ -12,12 +13,15 @@ export class EditUsersComponent implements OnInit {
   form!: FormGroup;
   id!: number;
   listUsers!: Array<User>;
+  listRoles!: Array<Role>;
   userEdit: any;
 
   constructor(private formBuilder: FormBuilder, private router: Router,
     private currentRoute: ActivatedRoute) {
     let data = sessionStorage.getItem('data');
-    this.listUsers = (data !== null) ? JSON.parse(data) : null
+    let roles = sessionStorage.getItem('roles');
+    this.listUsers = (data !== null) ? JSON.parse(data) : null;
+    this.listRoles = (roles !== null) ? JSON.parse(roles) : null;
   }
 
   ngOnInit(): void {
@@ -31,7 +35,8 @@ export class EditUsersComponent implements OnInit {
     this.form = this.formBuilder.group({
       name: new FormControl(userEdit.name, Validators.required),
       identification: new FormControl(userEdit.identification, Validators.required),
-      city: new FormControl(userEdit.city, Validators.required)
+      city: new FormControl(userEdit.city, Validators.required),
+      idRole: new FormControl(userEdit.idRole, Validators.required)
     })
   }
 
@@ -43,6 +48,7 @@ export class EditUsersComponent implements OnInit {
       name: this.form.get('name')?.value,
       identification: this.form.get('identification')?.value,
       city: this.form.get('city')?.value,
+      idRole: this.form.get('idRole')?.value
     }
     // this.
     position = this.listUsers.indexOf(this.userEdit);
