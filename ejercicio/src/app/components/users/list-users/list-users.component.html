@@ -1,0 +1,54 @@
+<h1>Lista de Usuarios</h1>
+<div class="row justify-content-md-end">
+    <a class=" col-md-2 btn btn-primary" routerLink="/users/create">Crear Usuario</a>
+</div>
+<br />
+
+<table class="table table-light table-hover">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombres</th>
+            <th scope="col">Cedula</th>
+            <th scope="col">Ciudad</th>
+            <th scope="col">Acciones</th>
+        </tr>
+    </thead>
+    <tbody *ngFor="let item of listUsers; index as i">
+        <tr>
+            <td>{{i+1}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.identification}}</td>
+            <td>{{item.city}}</td>
+            <td>
+                <i class="fa fa-trash-o" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                    (click)="onClickButtonDelete(i)">
+                </i>
+                <a href="users/edit/{{item.id}}">
+                    <i class="fa fa-pencil"></i>
+                </a>
+
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirmación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Está seguro que desea eliminar este registro?
+            </div>
+            <div class="modal-footer">
+                <button id="closeModal" type="button" class="btn btn-secondary"
+                    data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" (click)="delete()">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>

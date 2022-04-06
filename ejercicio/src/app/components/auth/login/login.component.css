@@ -22,12 +22,12 @@ input {
     padding: 5px 0px
 }
 
-button {
+/* button {
     background: #fbfe27;
     border: 1px solid #c5c840;
     padding: 9px;
     border-radius: 3px;
-}
+} */
 
 .logo {
     flex-grow: 1;
