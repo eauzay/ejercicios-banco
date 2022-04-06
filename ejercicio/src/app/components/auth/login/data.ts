@@ -1,4 +1,5 @@
 import { User } from "src/app/models/user";
+import { Role } from '../../../models/role';
 
 export const listUsers: Array<User> = [
 
@@ -19,5 +20,24 @@ export const listUsers: Array<User> = [
         name: "Maria Fiallos",
         identification: "1712457896",
         city: "Cuenca"
+    }
+]
+
+export const listRoles: Array<Role> = [
+
+    {
+        id: 1,
+        name: "Administrativo",
+        description: "Rol del personal administrativo"
+    },
+    {
+        id: 2,
+        name: "TI",
+        description: "Rol del personal de tecnología"
+    },
+    {
+        id: 3,
+        name: "Soporte",
+        description: "Rol del personal dedicado a soporte"
     }
 ]

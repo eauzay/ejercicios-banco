@@ -6,7 +6,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./modal.component.css']
 })
 export class ModalComponent implements OnInit {
-  @Input() data!: any;
+  @Input() value: any;
   @Output() response: EventEmitter<number> = new EventEmitter();
   constructor() { }
 
@@ -14,8 +14,8 @@ export class ModalComponent implements OnInit {
   }
 
   submit() {
-    // this.response.emit({ response: true, value: this.value });
-    this.response.emit(this.data.value);
+    //   this.response.emit({ response: true, value: this.value });
+    this.response.emit(this.value);
   }
 
 }

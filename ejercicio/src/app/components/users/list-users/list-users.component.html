@@ -1,39 +1,52 @@
-<h1>Lista de Usuarios</h1>
-<div class="row justify-content-md-end">
-    <a class=" col-md-2 btn btn-primary" routerLink="/users/create">Crear Usuario</a>
+<div class="container">
+    <h1>Lista de Usuarios</h1>
+    <br>
+    <div class="row">
+        <div class="col-md-4">
+            <input class="form-control" type="text" placeholder="Buscar cedula" #txtFind (keyup.enter)="findText()" />
+        </div>
+        <div class="col-md-2 ms-auto text-end">
+            <a class=" btn btn-primary" routerLink="/users/create">Crear Usuario</a>
+        </div>
+    </div>
+    <br />
+
+    <table class="table table-light table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombres</th>
+                <th scope="col">Cedula</th>
+                <th scope="col">Ciudad</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let item of listUsers; index as i">
+            <tr>
+                <td>{{i+1}}</td>
+                <td>{{item.name | textUpper : true}}</td>
+                <td>{{item.identification}}</td>
+                <td>{{item.city | textUpper : false}}</td>
+
+                <td>
+                    <i class="fa fa-trash-o" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                        (click)="onClickButtonDelete(i)">
+                    </i>
+                    <a href="users/edit/{{item.id}}">
+                        <i class="fa fa-pencil"></i>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
-<br />
 
-<table class="table table-light table-hover">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Nombres</th>
-            <th scope="col">Cedula</th>
-            <th scope="col">Ciudad</th>
-            <th scope="col">Acciones</th>
-        </tr>
-    </thead>
-    <tbody *ngFor="let item of listUsers; index as i">
-        <tr>
-            <td>{{i+1}}</td>
-            <td>{{item.name}}</td>
-            <td>{{item.identification}}</td>
-            <td>{{item.city}}</td>
-            <td>
-                <i class="fa fa-trash-o" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                    (click)="onClickButtonDelete(i)">
-                </i>
-                <a href="users/edit/{{item.id}}">
-                    <i class="fa fa-pencil"></i>
-                </a>
-
-            </td>
-        </tr>
-    </tbody>
-</table>
-
-
+<app-modal [value]="position" (response)="delete()">
+    <div *ngIf="position != null" class="modal-body">
+        Está seguro que desea eliminar el usuario : {{listUsers[position].name}} ?
+    </div>
+</app-modal>
+<!-- 
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -51,4 +64,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
