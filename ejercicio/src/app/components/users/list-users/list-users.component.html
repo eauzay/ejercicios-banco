@@ -11,7 +11,7 @@
     </div>
     <br />
 
-    <table class="table table-light table-hover">
+    <table *ngIf="listUsers && listUsers.length > 0" class="table table-light table-hover">
         <thead>
             <tr>
                 <th scope="col">#</th>
@@ -31,7 +31,7 @@
                 <td>{{item.idRole | roleName}}</td>
                 <td>
                     <i class="fa fa-trash-o" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                        (click)="onClickButtonDelete(i)">
+                        (click)="onClickButtonDelete(item.id,i)">
                     </i>
                     <a href="users/edit/{{item.id}}">
                         <i class="fa fa-pencil"></i>

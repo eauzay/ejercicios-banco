@@ -6,7 +6,6 @@ import { EditUsersComponent } from './edit-users/edit-users.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 
-
 @NgModule({
   declarations: [
     ListUsersComponent,
@@ -17,7 +16,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     UsersRoutingModule,
     SharedModule,
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
+
   ]
 })
 export class UsersModule { }
