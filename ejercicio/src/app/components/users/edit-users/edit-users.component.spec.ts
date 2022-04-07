@@ -8,7 +8,7 @@ import { EditUsersComponent } from './edit-users.component';
 describe('EditUsersComponent', () => {
   let component: EditUsersComponent;
   let fixture: ComponentFixture<EditUsersComponent>;
-  let data = listUsers;
+  let data = [ ...listUsers ];
   const formBuilder: FormBuilder = new FormBuilder();
 
 
@@ -25,6 +25,8 @@ describe('EditUsersComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
+
+
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -50,15 +52,20 @@ describe('EditUsersComponent', () => {
 
     let userEdit = data.find(x => x.id === component.id);
 
+    console.log('editado:' + userEdit);
+
 
     component.form = formBuilder.group({
       name: new FormControl("Actualizado"),
       identification: new FormControl(userEdit?.identification),
       city: new FormControl(userEdit?.city)
     })
-
+    console.log('inicio');
     expect(component.listUsers.length).toBe(3);
     component.onClickSaveButton();
+
+    console.log(component.listUsers.length);
+
     expect(component.listUsers.length).toBe(3);
   })
 
