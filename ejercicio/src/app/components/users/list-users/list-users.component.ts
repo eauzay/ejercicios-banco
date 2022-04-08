@@ -15,9 +15,6 @@ export class ListUsersComponent implements OnInit {
   @ViewChild('txtFind') txtFind!: ElementRef<HTMLInputElement>;
 
   constructor(private _userService: UserService) {
-    //  let data = sessionStorage.getItem('data');
-    // this.listUsers = (data !== null) ? JSON.parse(data) : null
-    //this.listTemp = (data !== null) ? JSON.parse(data) : null
   }
 
   ngOnInit(): void {
@@ -41,14 +38,6 @@ export class ListUsersComponent implements OnInit {
     this.id = id;
     this.position = position;
   }
-
-  // delete() {
-  //   if (this.position != 0) {
-  //     this.listUsers.splice(this.position, 1);
-  //     sessionStorage.setItem('data', JSON.stringify(this.listUsers));
-  //     document.getElementById("closeModal")?.click();
-  //   }
-  // }
 
   delete() {
     this._userService.deleteUser(this.id).subscribe(

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Role } from '../../../models/role';
+import { RoleService } from '../service/role.service';
 
 @Component({
   selector: 'app-list-roles',
@@ -8,28 +9,49 @@ import { Role } from '../../../models/role';
 })
 export class ListRolesComponent implements OnInit {
 
+  id!: number;
   position!: number;
-  listRoles!: Array<Role>;
+  listRoles: Role[] = [];
+  listTemp: Role[] = [];
 
-  constructor() {
-    let data = sessionStorage.getItem('roles');
-    this.listRoles = (data !== null) ? JSON.parse(data) : null
+  constructor(private _roleService: RoleService) {
   }
 
   ngOnInit(): void {
+    this.getAll();
   }
 
-  onClickButtonDelete(position: number) {
+  getAll() {
+    this._roleService.getRoles().subscribe(
+      (response) => {
+        if (response)
+          this.listRoles = response;
+        this.listTemp = response;
+      },
+      (error) => {
+        console.log();
+      }
+    );
+  }
+
+  onClickButtonDelete(id: number, position: number) {
+    this.id = id;
     this.position = position;
   }
 
   delete() {
-    if (this.position != 0) {
-      this.listRoles.splice(this.position, 1);
-      sessionStorage.setItem('roles', JSON.stringify(this.listRoles));
-      document.getElementById("closeModal")?.click();
-
-    }
+    this._roleService.deleteRole(this.id).subscribe(
+      (response) => {
+        if (response) {
+          document.getElementById("closeModal")?.click();
+          alert("Rol eliminado satisfactoriamente");
+        
+          this.getAll();
+        }
+      },
+      (error) =>{
+        alert('No se pudo eliminar el rol');
+      }
+    )
   }
 }
-

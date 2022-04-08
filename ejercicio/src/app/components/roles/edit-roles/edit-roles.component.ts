@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Role } from '../../../models/role';
 import { ActivatedRoute, Router } from '@angular/router';
+import { RoleService } from '../service/role.service';
 
 @Component({
   selector: 'app-edit-roles',
@@ -13,68 +14,81 @@ export class EditRolesComponent implements OnInit {
   form!: FormGroup;
   id!: number;
   listRoles!: Array<Role>;
-  roleEdit: any;
+  roleEdit!: Role;
 
   constructor(private formBuilder: FormBuilder, private router: Router,
-    private currentRoute: ActivatedRoute) {
-    let roles = sessionStorage.getItem('roles');
-    this.listRoles = (roles !== null) ? JSON.parse(roles) : null;
+    private currentRoute: ActivatedRoute, private _roleService: RoleService) {
   }
 
   ngOnInit(): void {
     this.id = Number(this.currentRoute.snapshot.paramMap.get('id'));
+    this.initForm();
 
     if (this.id) {
       this.title = "Editar Rol";
-      this.roleEdit = this.listRoles.find(x => x.id === this.id);
+      this.getRoleById();
     }
     else {
       this.title = "Crear Rol";
-      this.roleEdit = null;
     }
-    this.initForm(this.roleEdit);
   }
 
-  initForm(roleEdit: any) {
+  initForm() {
     this.form = this.formBuilder.group({
-      name: new FormControl((roleEdit) ? roleEdit.name : '', Validators.required),
-      description: new FormControl((roleEdit) ? roleEdit.description : '', Validators.required)
+      name: new FormControl('', Validators.required),
+      description: new FormControl('', Validators.required)
     })
   }
 
-  getRole() {
-    let role: Role;
-
-    role = {
-      id: (this.id) ? this.id : this.listRoles.length + 1,
-      name: this.form.get('name')?.value,
-      description: this.form.get('description')?.value
-    }
-
-    return role;
+  getRoleById() {
+    this._roleService.getRoleById(this.id).subscribe(
+      (response) => {
+        this.roleEdit = response;
+        this.form.get('id')?.setValue(this.roleEdit.id);
+        this.form.get('name')?.setValue(this.roleEdit.name);
+        this.form.get('description')?.setValue(this.roleEdit.description);
+      },
+      (error) => {
+        alert('No se pudo obtener el rol');
+      }
+    )
   }
 
-  edit(role: Role) {
-    let position;
-    position = this.listRoles.indexOf(this.roleEdit);
-    this.listRoles[position] = role;
+  editRole(role: Role) {
+    this._roleService.updateRole(this.id, role).subscribe(
+      (response) => {
+        if (response) {
+          alert('Rol actualizado satisfactoriamente');
+        }
+      },
+      (error) => {
+        alert('No se pudo editar el rol');
+      }
+    );
   }
 
-  create(role: Role) {
-    this.listRoles.push(role);
+  createRole(role: Role) {
+    this._roleService.newRole(role).subscribe(
+      (response) => {
+        if (response) {
+          alert('Rol creado satisfactoriamente');
+        }
+      },
+      (error) => {
+        alert('No se pudo crear el rol');
+      }
+    );
   }
 
   onClickSaveButton() {
-    let role: Role;
-    role = this.getRole();
+    const rol = this.form.getRawValue();
 
     if (this.id) {
-      this.edit(role)
+      this.editRole(rol)
     } else {
-      this.create(role);
+      this.createRole(rol);
     }
 
-    sessionStorage.setItem('roles', JSON.stringify(this.listRoles));
     this.form.reset();
     this.router.navigate(['/roles/list'])
   }

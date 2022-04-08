@@ -5,6 +5,7 @@ import { RolesRoutingModule } from './roles-routing.module';
 import { EditRolesComponent } from './edit-roles/edit-roles.component';
 import { ListRolesComponent } from './list-roles/list-roles.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '../../shared/shared.module';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     RolesRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ]
 })
 export class RolesModule { }

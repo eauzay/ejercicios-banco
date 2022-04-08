@@ -1,52 +1,40 @@
-<h1>Lista de Roles</h1>
-<div class="row justify-content-md-end">
-    <a class=" col-md-2 btn btn-primary" routerLink="/roles/create">Crear Rol</a>
-</div>
-<br />
-
-<table class="table table-light table-hover">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Descripción</th>
-            <th scope="col">Aciones</th>
-        </tr>
-    </thead>
-    <tbody *ngFor="let item of listRoles; index as i">
-        <tr>
-            <td>{{i+1}}</td>
-            <td>{{item.name}}</td>
-            <td>{{item.description}}</td>
-            <td>
-                <i class="fa fa-trash-o" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                    (click)="onClickButtonDelete(i)">
-                </i>
-                <a href="roles/edit/{{item.id}}">
-                    <i class="fa fa-pencil"></i>
-                </a>
-
-            </td>
-        </tr>
-    </tbody>
-</table>
-
-
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalLabel">Confirmación</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Está seguro que desea eliminar este registro?
-            </div>
-            <div class="modal-footer">
-                <button id="closeModal" type="button" class="btn btn-secondary"
-                    data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" (click)="delete()">Aceptar</button>
-            </div>
-        </div>
+<div class="container">
+    <h1>Lista de Roles</h1>
+    <div class="row justify-content-md-end">
+        <a class=" col-md-2 btn btn-primary" routerLink="/roles/create">Crear Rol</a>
     </div>
+    <br />
+
+    <table *ngIf="listRoles && listRoles.length > 0" class="table table-light table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let item of listRoles; index as i">
+            <tr>
+                <td>{{i+1}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.description}}</td>
+                <td>
+                    <i class="fa fa-trash-o" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                        (click)="onClickButtonDelete(item.id,i)">
+                    </i>
+                    <a href="roles/edit/{{item.id}}">
+                        <i class="fa fa-pencil"></i>
+                    </a>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
+
+<app-modal [value]="position" (response)="delete()">
+    <div *ngIf="position != null" class="modal-body">
+        Está seguro que desea eliminar el rol : {{listRoles[position].name}} ?
+    </div>
+</app-modal>

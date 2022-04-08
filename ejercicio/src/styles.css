@@ -1,34 +1,58 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import '~font-awesome/css/font-awesome.css';
-
+/* 
 body {
   margin: 20px;
 }
 
-form{
+form {
   margin: 30px;
 }
 
-button{
+button {
   margin-left: 15px;
 }
 
-.fa-trash-o{
-  color: red;
-  padding-right: 6px;
-}
 
-.table{
+
+.table {
   border: 1px solid #e1e5e8;
 }
 
-table, th, td {
+table,
+th,
+td {
   border: 1px solid #b2adad;
   border-collapse: collapse;
 }
 
+h1 {
+  font-family: math;
+  color: #868484;
+} */
+
+
+
+.btn-primary {
+  background-color: #efea18 !important;
+  color: black;
+  border: none;
+  border-radius: 7px;
+}
+
 h1{
-font-family: math;
-color: #868484;
+  font-family: emoji;
+  color: #6a6666;
+  font-size: 30px;
+  margin: 30px 0px;
+}
+
+.card{
+  padding:70px 5px!important;
+}
+
+.fa-trash-o {
+  color: red;
+  padding-right: 10px;
 }

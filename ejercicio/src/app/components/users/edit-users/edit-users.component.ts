@@ -20,39 +20,25 @@ export class EditUsersComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private router: Router,
     private currentRoute: ActivatedRoute, private _userService: UserService) {
-    //  let data = sessionStorage.getItem('data');
     let roles = sessionStorage.getItem('roles');
-    //  this.listUsers = (data !== null) ? JSON.parse(data) : null;
     this.listRoles = (roles !== null) ? JSON.parse(roles) : null;
-
   }
 
   ngOnInit(): void {
-    // let user: any;
     this.id = Number(this.currentRoute.snapshot.paramMap.get('id'));
     this.initForm();
 
     if (this.id) {
       this.title = "Editar Usuario";
       this.getUserById();
-      // this.userEdit = this.listUsers.find(x => x.id === this.id);
     }
     else {
       this.title = "Crear Usuario";
-      //this.userEdit = null;
     }
-
-    // this.initForm(this.userEdit);
   }
 
   initForm() {
     this.form = this.formBuilder.group({
-      // id: new FormControl((userEdit) ? userEdit.id : '', Validators.required),
-      // name: new FormControl((userEdit) ? userEdit.name : '', Validators.required),
-      // identification: new FormControl((userEdit) ? userEdit.identification : '', Validators.required),
-      // city: new FormControl((userEdit) ? userEdit.city : '', Validators.required),
-      // idRole: new FormControl((userEdit) ? userEdit.idRole : '', Validators.required)
-
       name: new FormControl('', Validators.required),
       identification: new FormControl('', Validators.required),
       city: new FormControl('', Validators.required),
@@ -76,24 +62,7 @@ export class EditUsersComponent implements OnInit {
     )
   }
 
-  // getUser() {
-  //   let user: User;
-
-  //   user = {
-  //     id: (this.id) ? this.id : this.listUsers.length + 1,
-  //     name: this.form.get('name')?.value,
-  //     identification: this.form.get('identification')?.value,
-  //     city: this.form.get('city')?.value,
-  //     idRole: this.form.get('idRole')?.value
-  //   }
-
-  //   return user;
-  // }
-
   editUser(user: User) {
-    // let position;
-    // position = this.listUsers.indexOf(this.userEdit);
-    // this.listUsers[position] = user;
     this._userService.updateUser(this.id, user).subscribe(
       (response) => {
         if (response) {
@@ -107,8 +76,6 @@ export class EditUsersComponent implements OnInit {
   }
 
   createUser(user: User) {
-
-    // this.listUsers.push(user);
     this._userService.newUser(user).subscribe(
       (response) => {
         if (response) {
@@ -122,9 +89,6 @@ export class EditUsersComponent implements OnInit {
   }
 
   onClickSaveButton() {
-    //let user: User;
-    //user = this.getUser();
-
     const user = this.form.getRawValue();
 
     if (this.id) {
@@ -133,7 +97,6 @@ export class EditUsersComponent implements OnInit {
       this.createUser(user);
     }
 
-    // sessionStorage.setItem('data', JSON.stringify(this.listUsers));
     this.form.reset();
     this.router.navigate(['/users/list'])
   }
